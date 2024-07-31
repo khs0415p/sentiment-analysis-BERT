@@ -1,0 +1,33 @@
+seed: 42
+model_type: bert
+device: cuda                    # cpu, cuda, [0, 1] ...
+ddp: false                      # for multi-gpu training
+
+model_path: google-bert/bert-base-multilingual-uncased   # huggingface path
+tokenizer_path: google-bert/bert-base-multilingual-uncased
+num_labels: 2
+cache_dir: /data
+data_path: data/naver_reviews.csv
+
+fp16: false
+fp16_opt_level: "01"            # mixed precision
+
+do_eval: true                   # validation
+
+max_length: 512                 # max-length for tokenize
+scheduler_type: linear          # linear or cosine
+warmup_ratio: 0.1
+weight_decay: 0.01              # optimizer weight decay
+use_exclude: false              # excluding bias and norm from weight decay
+
+save_total_limit: 50
+epochs: 5
+batch_size: 128
+lr: 2e-5
+gradient_accumulation_steps: 1.0
+clip_max_norm: 1.0
+
+save_strategy: epoch            # epoch or step
+save_step: 10                   # if save_starategy is a step, the model saved at each save_step.
+compare_best: false             # if this option is true, compare loss and save model.
+log_step: 50                   # step for terminal log
